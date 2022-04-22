@@ -2,6 +2,6 @@ pandas
 numpy
 sklearn
 joblib
-smatplotlib
+matplotlib
 seaborn
 plotly.express
