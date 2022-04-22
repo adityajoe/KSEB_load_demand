@@ -73,6 +73,8 @@ ax = sns.scatterplot(x = Y_test, y = Y_pred)
 plt.xlabel("Actual Demand")
 plt.ylabel("Predicted Demand")
 st.pyplot()
+st.write("We can observe an almost 45 degree line (with some outliers), so we can conclude that our model is almost predicting the demand accurately.")
+st.caption("Machine Learning is never perfect, we can't predict accurately for each data point we have")
 st.subheader(" Accuracy Measurement ---> CDF of Errors")
 delta_y = abs(Y_test - Y_pred);
 sns.set_style('whitegrid')
