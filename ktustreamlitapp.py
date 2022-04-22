@@ -14,6 +14,7 @@ from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
 from sklearn.metrics import mean_squared_error
 import sklearn.model_selection as cv
+raw_data = pd.read_csv("")
 demand_data = pd.read_csv("https://raw.githubusercontent.com/adityajoe/KSEB_load_demand/main/tvm%20experiment%20data.csv")
 final = demand_data.drop(columns = ["Relative Humidity in %", "Temperature in Degree C", "Radiation value in MJ/m^2" ])
 date = pd.to_datetime(final["Date_Time"]).dt.date
