@@ -14,8 +14,12 @@ from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
 from sklearn.metrics import mean_squared_error
 import sklearn.model_selection as cv
-raw_data = pd.read_csv("")
+raw_data = pd.read_csv("https://raw.githubusercontent.com/adityajoe/KSEB_load_demand/main/raw_data.csv")
 demand_data = pd.read_csv("https://raw.githubusercontent.com/adityajoe/KSEB_load_demand/main/tvm%20experiment%20data.csv")
+rainfall_missing = demand_data["Demand in MW"][pd.isna(demand_data[ "Rainfall in mm"])].count() # we have 3198 missing values for rainfall
+Humidity_missing = demand_data["Demand in MW"][pd.isna(demand_data[ "Relative Humidity in %"])].count() # we have 11948 missing values. So we can drop this column from our final data set
+temperature_missing = demand_data["Demand in MW"][pd.isna(demand_data[ "Temperature in Degree C"])].count() # we have 15609 missing values in  temperature column, so we can get rid of that as well
+print(demand_data["Demand in MW"][pd.isna(demand_data[ "Radiation value in MJ/m^2"])].count()) # we have 17372 missing values in  temperature column, so we can get rid of that as well
 final = demand_data.drop(columns = ["Relative Humidity in %", "Temperature in Degree C", "Radiation value in MJ/m^2" ])
 date = pd.to_datetime(final["Date_Time"]).dt.date
 time = pd.to_datetime(final["Date_Time"]).dt.time
@@ -28,9 +32,15 @@ for i in range(len(time_array)):
   time_array[i] = time_array[i][0:2]
 final["Time"] = time_array
 st.title("KSEB Load Demand Prediction using Linear Regression")
-st.write("• In this project I used historical demand data collected from Kerala State Electricity Board and weather data collected from IMD and ANERT. My goal was to create a Machine Learning Model which could predict the load demand for the next day/hour given the required data.")
+st.write("• In this project I used historical demand data  and weather data collected by my team from Kerala State Electricity Board collected from IMD and ANERT. My goal was to create a Machine Learning Model which could predict the load demand for the next day/hour given the required data.")
 st.write("•	After collating the data from various sources, I performed simple feature engineering and exploratory data analysis. I found the demand to follow different patterns on weekdays and weekends as well as on holidays.Demand also varied according to the time of the day. I also added new features like Hourly average of previous weeks.These features made our model more sensible to less prone to outliers. I also performed standardization.")
-st.write("•	After the initial data preprocessing, I used Linear regression to create the model. My model gave an accuracy of 95%")
+st.write("•	After the initial data preprocessing, I decided to use Linear regression to create the model since it offers high interpretability and good results for linearly distributed data )
+st.subheader("Raw Data Collected")
+st.dataframe(raw_data)
+st.caption("Percentage of missing values in rainfall", rainfall_missing * 262.80)
+st.caption("Percentage of missing values in Relative Humidity ", Humidity_missing * 262.80)
+st.caption("Percentage of missing values in Temperature", temperature_missing/262.8)         
+st.write("From this data, I removed the features that had a lot of missing values and added new features that I thought would bring value to the model")
 st.dataframe(final)
 st.header("Variation of Demand on holidays and non holidays")
 newplot = sns.FacetGrid(final, hue="Kerala Holidays", size=10);
