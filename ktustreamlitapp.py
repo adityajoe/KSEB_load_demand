@@ -19,7 +19,7 @@ demand_data = pd.read_csv("https://raw.githubusercontent.com/adityajoe/KSEB_load
 rainfall_missing = demand_data["Demand in MW"][pd.isna(demand_data[ "Rainfall in mm"])].count()
 humidity_missing = demand_data["Demand in MW"][pd.isna(demand_data[ "Relative Humidity in %"])].count()
 temperature_missing = demand_data["Demand in MW"][pd.isna(demand_data[ "Temperature in Degree C"])].count()
-print(demand_data["Demand in MW"][pd.isna(demand_data[ "Radiation value in MJ/m^2"])].count()) # we have 17372 missing values in  temperature column, so we can get rid of that as well
+print(demand_data["Demand in MW"][pd.isna(demand_data[ "Radiation value in MJ/m^2"])].count())
 final = demand_data.drop(columns = ["Relative Humidity in %", "Temperature in Degree C", "Radiation value in MJ/m^2" ])
 date = pd.to_datetime(final["Date_Time"]).dt.date
 time = pd.to_datetime(final["Date_Time"]).dt.time
@@ -34,7 +34,7 @@ final["Time"] = time_array
 st.title("KSEB Load Demand Prediction using Linear Regression")
 st.write("• In this project I used historical demand data  and weather data collected by my team from Kerala State Electricity Board collected from IMD and ANERT. My goal was to create a Machine Learning Model which could predict the load demand for the next day/hour given the required data.")
 st.write("•	After collating the data from various sources, I performed simple feature engineering and exploratory data analysis. I found the demand to follow different patterns on weekdays and weekends as well as on holidays.Demand also varied according to the time of the day. I also added new features like Hourly average of previous weeks.These features made our model more sensible to less prone to outliers. I also performed standardization.")
-st.write("•	After the initial data preprocessing, I decided to use Linear regression to create the model since it offers high interpretability and good results for linearly distributed data )
+st.write("•	After the initial data preprocessing, I decided to use Linear regression to create the model since it offers high interpretability and good results for linearly distributed data" )
 st.subheader("Raw Data Collected")
 st.dataframe(raw_data)
 st.caption("Percentage of missing values in rainfall", rainfall_missing * 262.80)
