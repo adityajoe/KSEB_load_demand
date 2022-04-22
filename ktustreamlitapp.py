@@ -16,9 +16,9 @@ from sklearn.metrics import mean_squared_error
 import sklearn.model_selection as cv
 raw_data = pd.read_csv("https://raw.githubusercontent.com/adityajoe/KSEB_load_demand/main/raw_data.csv")
 demand_data = pd.read_csv("https://raw.githubusercontent.com/adityajoe/KSEB_load_demand/main/tvm%20experiment%20data.csv")
-rainfall_missing = demand_data["Demand in MW"][pd.isna(demand_data[ "Rainfall in mm"])].count() # we have 3198 missing values for rainfall
-Humidity_missing = demand_data["Demand in MW"][pd.isna(demand_data[ "Relative Humidity in %"])].count() # we have 11948 missing values. So we can drop this column from our final data set
-temperature_missing = demand_data["Demand in MW"][pd.isna(demand_data[ "Temperature in Degree C"])].count() # we have 15609 missing values in  temperature column, so we can get rid of that as well
+rainfall_missing = demand_data["Demand in MW"][pd.isna(demand_data[ "Rainfall in mm"])].count()
+humidity_missing = demand_data["Demand in MW"][pd.isna(demand_data[ "Relative Humidity in %"])].count()
+temperature_missing = demand_data["Demand in MW"][pd.isna(demand_data[ "Temperature in Degree C"])].count()
 print(demand_data["Demand in MW"][pd.isna(demand_data[ "Radiation value in MJ/m^2"])].count()) # we have 17372 missing values in  temperature column, so we can get rid of that as well
 final = demand_data.drop(columns = ["Relative Humidity in %", "Temperature in Degree C", "Radiation value in MJ/m^2" ])
 date = pd.to_datetime(final["Date_Time"]).dt.date
@@ -40,7 +40,7 @@ st.dataframe(raw_data)
 st.caption("Percentage of missing values in rainfall", rainfall_missing * 262.80)
 st.caption("Percentage of missing values in Relative Humidity ", Humidity_missing * 262.80)
 st.caption("Percentage of missing values in Temperature", temperature_missing/262.8)         
-st.write("From this data, I removed the features that had a lot of missing values and added new features that I thought would bring value to the model")
+st.write("From this data, I removed the features that had a lot of missing values and added new features that I thought would bring value to the model. Since Temperature and Relative Humidity have a large proportion of missing values, I dropped them so that my model is not trained on garbage data.")
 st.dataframe(final)
 st.header("Variation of Demand on holidays and non holidays")
 newplot = sns.FacetGrid(final, hue="Kerala Holidays", size=10);
