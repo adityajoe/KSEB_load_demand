@@ -112,7 +112,7 @@ st.write("""* Finally, after all the data analysis, visualization and validation
          Kerala State Electricity Board stores the demand data hour wise for each day,
          so this model can definitely be used if trained with recent data.""")
 Date = st.date_input("Enter a date between 1/1/2017 to 7/1/2020 ",
-                     datetime.date(2019, 7, 6), max_value= datetime.date(2020, 7, 1), min_value= datetime.date(2017,1,1))
+                     datetime.date(2019, 7, 6), max_value= datetime.date(2020, 1, 1), min_value= datetime.date(2017,1,1))
 st.text("")
 st.text("")
 Holiday = st.checkbox("Tick the check box if it is a Holiday")
