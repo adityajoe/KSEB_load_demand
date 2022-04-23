@@ -16,6 +16,7 @@ from sklearn.metrics import mean_squared_error
 import sklearn.model_selection as cv
 import datetime
 from datetime import date
+import time
 raw_data = pd.read_csv("https://raw.githubusercontent.com/adityajoe/KSEB_load_demand/main/raw_data.csv")
 demand_data = pd.read_csv("https://raw.githubusercontent.com/adityajoe/KSEB_load_demand/main/tvm%20experiment%20data.csv")
 rainfall_missing = demand_data["Demand in MW"][pd.isna(demand_data[ "Rainfall in mm"])].count()
@@ -111,31 +112,33 @@ st.write("""* Finally, after all the data analysis, visualization and validation
          predictions can be made on that time span only. 
          Kerala State Electricity Board stores the demand data hour wise for each day,
          so this model can definitely be used if trained with recent data.""")
-Date = st.date_input("Enter a date between 1/1/2017 to 7/1/2020 ",
-                     datetime.date(2019, 7, 6), max_value= datetime.date(2020, 1, 1), min_value= datetime.date(2017,1,1))
-st.text("")
-st.text("")
-Holiday = st.checkbox("Tick the check box if it is a Holiday")
-if Holiday:
-    Holiday = 1
-else:
-    Holiday = 0
-st.text("")
-st.text("")
-rainfall = st.number_input("Enter the amount of rainfall in mm on the present day", step= 1)
-st.text("")
-st.text("")
-hour = st.slider("Enter the hour for which you want to predict the demand", 0,23)
-if len(str(hour)) == 1:
-    hour = "0" + str(hour)
-else:
-    hour = str(hour)
-curr_date = str(Date)
-previous_Date = Date - datetime.timedelta(days=1)
-previous_Date = str(previous_Date)
-st.text("")
-st.text("")
-day_week = st.number_input("Enter the Day of the Week- 1---> Sunday", step= 1, min_value= 1, max_value= 7)
+with st.form("input values"):
+    Date = st.date_input("Enter a date between 1/1/2017 to 7/1/2020 ",
+                         datetime.date(2019, 7, 6), max_value= datetime.date(2020, 1, 1), min_value= datetime.date(2017,1,1))
+    st.text("")
+    st.text("")
+    Holiday = st.checkbox("Tick the check box if it is a Holiday")
+    if Holiday:
+        Holiday = 1
+    else:
+        Holiday = 0
+    st.text("")
+    st.text("")
+    rainfall = st.number_input("Enter the amount of rainfall in mm on the present day", step= 1)
+    st.text("")
+    st.text("")
+    hour = st.slider("Enter the hour for which you want to predict the demand", 0,23)
+    if len(str(hour)) == 1:
+        hour = "0" + str(hour)
+    else:
+        hour = str(hour)
+    curr_date = str(Date)
+    previous_Date = Date - datetime.timedelta(days=1)
+    previous_Date = str(previous_Date)
+    st.text("")
+    st.text("")
+    day_week = st.number_input("Enter the Day of the Week- 1---> Sunday", step= 1, min_value= 1, max_value= 7)
+    submitted = st.form_submit_button("Submit")
 yesterday = final["Demand in MW"][(final["Date"] == previous_Date) & (final["Time"] == hour)].sum()
 hourly_prev_week = 0
 count = 0
@@ -150,7 +153,7 @@ input_array = np.array([hour, rainfall, Holiday, day_week, yesterday, hourly_pre
 output = lm.intercept_ + np.array(coefficients).dot(input_array)
 st.text("")
 st.text("")
-if st.button("Predict Demand"):
+if submitted:
     st.write("The predicted demand for the date {} and hour {} is {}".format(Date, hour, output))
-st.caption("Streamlit shows the loading screen after every input but you will still be able to input all values at that time :)")
+st.caption("PS. This was my first project,will try to work with more complicated datasets next time :) ")
 
