@@ -36,9 +36,19 @@ for i in range(len(time_array)):
   time_array[i] = time_array[i][0:2]
 final["Time"] = time_array
 st.title("KSEB Load Demand Prediction using Linear Regression")
-st.write("• In this project I used historical demand data collected from Kerala State Electricity Board and weather data collected from IMD and ANERT. My goal was to create a Machine Learning Model which could predict the load demand for the next day/hour given the required data.")
-st.write("•	After collating the data from various sources, I performed simple feature engineering and exploratory data analysis. I found the demand to follow different patterns on weekdays and weekends as well as on holidays.Demand also varied according to the time of the day. I also added new features like Hourly average of previous weeks.These features made the model more sensible to less prone to outliers. I also performed standardization.")
-st.write("•	After the initial data preprocessing, I decided to use Linear regression to create the model since it offers high interpretability and good results for linearly distributed data" )
+st.write("""• My main motivation to do this project was to reduce the spot purchase of power in KSEB. 
+         Spot purchase of power is much more expensive than purchasing power for a later date. 
+         So if we can predict the demand a day before, we might be able to reduce the spot purchase in power.""") 
+st.write("""• In this project I used historical demand dat
+a collected from Kerala State Electricity Board and weather data collected from IMD and ANERT to create a Machine Learning Model
+which could predict the load demand for the next day/hour given the required data.""")
+st.write("""•	After collating the data from various sources, I performed simple feature engineering and exploratory data analysis.
+         I found the demand to follow different patterns on weekdays and weekends as well as on holidays.
+         Demand also varied according to the time of the day. 
+         I also added new features like Hourly average of previous weeks, 
+         Day of the week etc.These features made the model more sensible to less prone to outliers. I also performed standardization.""")
+st.write("""•	After the initial data preprocessing, I decided to use Linear regression to create the model since it offers
+high interpretability and good results for linearly distributed data""" )
 st.subheader("Raw Data Collected")
 st.dataframe(raw_data)
 st.write("1. Missing values in rainfall - ", rainfall_missing)
