@@ -166,5 +166,5 @@ st.text("")
 st.text("")
 if submitted:
     st.write("The predicted demand for the date {} and hour {} is {}".format(Date, hour, output))
-st.caption("PS. This was my first project,will try to work with more complicated datasets next time :) ")
+st.caption("You can contact me at adityajoethomas@gmail.com")
 
