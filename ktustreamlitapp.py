@@ -38,7 +38,7 @@ final["Time"] = time_array
 st.title("KSEB Load Demand Prediction using Linear Regression")
 st.write("""• My main motivation to do this project was to reduce the spot purchase of power in KSEB. 
          Spot purchase of power is much more expensive than purchasing power for a later date. 
-         So if we can predict the demand a day before, we might be able to reduce the spot purchase in power.""") 
+         So if we can predict the demand beforehand, we might be able to reduce the expenditure of power purchases""") 
 st.write("""• In this project I used historical demand dat
 a collected from Kerala State Electricity Board and weather data collected from IMD and ANERT to create a Machine Learning Model
 which could predict the load demand for the next day/hour given the required data.""")
