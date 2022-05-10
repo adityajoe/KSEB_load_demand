@@ -38,7 +38,7 @@ final["Time"] = time_array
 st.title("KSEB Load Demand Prediction using Linear Regression")
 st.write("""• My main motivation to do this project was to reduce the spot purchase of power in KSEB. 
          Spot purchase of power is much more expensive than purchasing power for a later date. 
-         So if we can predict the demand beforehand, we might be able to reduce the expenditure of power purchases""") 
+         So if we can predict the demand beforehand, we might be able to reduce the expenditure of power purchases""")
 st.write("""• In this project I used historical demand dat
 a collected from Kerala State Electricity Board and weather data collected from IMD and ANERT to create a Machine Learning Model
 which could predict the load demand for the next day/hour given the required data.""")
@@ -161,10 +161,16 @@ for i in range(1,8,1):
 hourly_prev_week = hourly_prev_week/7
 hour = int(hour)
 input_array = np.array([hour, rainfall, Holiday, day_week, yesterday, hourly_prev_week])
-output = lm.intercept_ + np.array(coefficients).dot(input_array)
+input_data = {"Time":hour, "Rainfall in mm":rainfall, "Kerala Holidays":Holiday,
+              "Day of the week":day_week,"Demand during this hour":yesterday, "Hourly Avg. of Prev. week":hourly_prev_week}
+input_df = pd.DataFrame(input_data, index=[0])
+output = float(lm.predict(input_df))
 st.text("")
 st.text("")
 if submitted:
-    st.write("The predicted demand for the date {} and hour {} is {}".format(Date, hour, output))
+    st.markdown("**The Predicted Demand for the date {} and hour {} is:  {} MegaWatt**".format(Date, hour, output))
+
+
+
 st.caption("You can contact me at adityajoethomas@gmail.com")
 
