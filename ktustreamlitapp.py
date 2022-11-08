@@ -60,7 +60,7 @@ st.subheader("Processed and Cleaned Data")
 st.dataframe(final)
 st.header("Exploratory Data Analysis")
 st.subheader("Variation of Demand on holidays and non holidays")
-newplot = sns.FacetGrid(final, hue="Kerala Holidays", size=10);
+newplot = sns.FacetGrid(final, hue="Kerala Holidays", height=10, aspect = 1);
 newplot.map(sns.distplot, "Demand in MW");
 newplot.add_legend();
 st.pyplot(newplot)
